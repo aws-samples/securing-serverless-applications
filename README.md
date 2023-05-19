@@ -1,11 +1,17 @@
-## My Project
+## Securing Serverless Applications
 
-TODO: Fill this README out!
+This repository contains the source code necessary to complete setup of the Securing Serverless Applications workshop and to run the workshop outside of an AWS event.  
 
-Be sure to:
+**Prerequisites:** requires access to a command line and  aws cli installed.
 
-* Change the title in this README
-* Edit your repository description on GitHub
+1. If you are running the workshop in an AWS event continue to [CompleteSetup](#complete-setup)
+2. If you are running the workshop outside of an AWS event, create the stack by executing the following command at the command line in a terminal.
+~~~
+aws cloudformation create-stack --stack-name 'Secure-Serverless' --template-body file://setup/Secure-Serverless.yml
+~~~
+
+## Complete Setup
+
 
 ## Security
 
