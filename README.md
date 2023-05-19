@@ -11,6 +11,11 @@ aws cloudformation create-stack --stack-name 'Secure-Serverless' --template-body
 ~~~
 
 ## Complete Setup
+1. Open the Cloud9 environment created by CloudFormation template.  Execute the following command in a terminal window.
+~~~
+source setup/bootstrap.sh
+~~~
+2. You can now proceed following the workshop instructions.
 
 
 ## Security
