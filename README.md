@@ -9,6 +9,7 @@ This repository contains the source code necessary to complete setup of the Secu
 ~~~
 aws cloudformation create-stack --stack-name 'Secure-Serverless' --template-body file://setup/Secure-Serverless.yml
 ~~~
+3. Continue to [Complete Setup](#complete-setup)
 
 ## Complete Setup
 1. Open the Cloud9 environment created by CloudFormation template.  Execute the following command in a terminal window.
