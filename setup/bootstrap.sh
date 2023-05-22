@@ -14,8 +14,6 @@
 # NOTES
 # As currently written only works in Cloud9
 
-set -exo pipefail
-
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
