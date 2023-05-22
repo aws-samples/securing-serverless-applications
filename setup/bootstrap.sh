@@ -14,6 +14,8 @@
 # NOTES
 # As currently written only works in Cloud9
 
+set -exo pipefail
+
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
@@ -73,6 +75,7 @@ function setcfoutput() {
     do
         echo "$output=$(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[?OutputKey==`'$output'`].OutputValue' --output text)" >> $work_dir/set_vars.sh
     done
+    source $work_dir/set_vars.sh
 }
 
 function deployapp() {
