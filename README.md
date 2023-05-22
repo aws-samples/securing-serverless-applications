@@ -27,10 +27,10 @@ aws cloudformation create-stack --stack-name 'Secure-Serverless' --template-body
 1. Monitor CloudFormation and wait for the all stacks to say *Create Complete*. You must complete the next steps in the **Cloud9** environment created by the **Cloud Formation** template you executed above.
 3. From the AWS console, open the **Cloud9** environment.
 4. Just to eliminate the clutter, close all windows and open a new terminal window.
-5. Clone the setup repository to the **Cloud9** environment, change to the repository working directory, and source the bootstrap script to complete setup and set some helpful environment variables.
+5. Clone the setup repository to the **Cloud9** environment, change to the repository working directory, and source the bootstrap script to complete setup and set some helpful environment variables.  Replace _Secure-Serverless_ with the stack name you provided if necessary.
 ~~~
 git clone https://github.com/aws-samples/securing-serverless-applications.git
-source securing-serverless-applications/setup/bootstrap.sh
+source securing-serverless-applications/setup/bootstrap.sh Secure-Serverless
 ~~~
 5. You can now proceed following the workshop instructions.
 
