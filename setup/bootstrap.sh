@@ -130,7 +130,7 @@ function main() {
 if [ -d "$HOME/environment" ];
 then
   echo "we are in a Cloud9 environment"
-  export work_dir="$HOME/environment/setup"
+  export work_dir="$HOME/environment/securing-serverless-applications/setup"
   cd $work_dir
   if [ -f 'set_vars.sh' ]; then
     rm set_vars.sh

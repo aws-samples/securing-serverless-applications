@@ -15,20 +15,24 @@ If running from an AWS event an account with the necessary prerequisites will be
 ## Running from your own account
 If you are running from your own account you must have access to a command line with the **AWS Command Line Interface** (AWS CLI) installed.  You can find instructions [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for installing and configuring the AWS CLI.
 
-1. Create the workshop stack by executing the following command at the command line in a terminal.
+1. Change to a directory where you want to clone the setup repository.
+2. Create the workshop stack by executing the following command at the command line in a terminal.
 ~~~
-# Make sure you are at the project root
 aws cloudformation create-stack --stack-name 'Secure-Serverless' --template-body file://setup/Secure-Serverless.yml
 ~~~
 2. Continue to [Complete Setup](#complete-setup)
 
 ## Complete Setup
-1. Open the Cloud9 environment created by CloudFormation template.  Execute the following command in a terminal window.
+
+1. Monitor CloudFormation and wait for the all stacks to say *Create Complete*. You must complete the next steps in the **Cloud9** environment created by the **Cloud Formation** template you executed above.
+3. From the AWS console, open the **Cloud9** environment.
+4. Just to eliminate the clutter, close all windows and open a new terminal window.
+5. Clone the setup repository to the **Cloud9** environment, change to the repository working directory, and source the bootstrap script to complete setup and set some helpful environment variables.
 ~~~
-# Make sure you are at the project root
-source setup/bootstrap.sh
+git clone https://github.com/aws-samples/securing-serverless-applications.git
+source securing-serverless-applications/setup/bootstrap.sh
 ~~~
-2. You can now proceed following the workshop instructions.
+5. You can now proceed following the workshop instructions.
 
 
 ## Security
