@@ -151,4 +151,4 @@ fi
 export stack_name=${1}
 main
 source $work_dir/set_vars.sh
-cd $work_dir/../..
+cd $HOME/environment
