@@ -51,12 +51,12 @@ Resources:
               Action:
                 - "dynamodb:*"
               Resource: "*"
-#        - Version: '2012-10-17'
-#          Statement:
-#            - Effect: Allow
-#              Action:
-#                - "secretsmanager:GetSecretValue"
-#              Resource: "*"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - "secretsmanager:GetSecretValue"
+              Resource: "*"
       VpcConfig:
         SecurityGroupIds:
           - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
@@ -85,12 +85,12 @@ Resources:
       Runtime: nodejs14.x
       Policies:
         - VPCAccessPolicy: {}
-#        - Version: '2012-10-17'
-#          Statement:
-#            - Effect: Allow
-#              Action:
-#                - "secretsmanager:GetSecretValue"
-#              Resource: "*"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - "secretsmanager:GetSecretValue"
+              Resource: "*"
       VpcConfig:
         SecurityGroupIds:
           - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
@@ -135,12 +135,12 @@ Resources:
       Runtime: nodejs14.x
       Policies:
         - VPCAccessPolicy: {}
-#        - Version: '2012-10-17'
-#          Statement:
-#            - Effect: Allow
-#              Action:
-#                - "secretsmanager:GetSecretValue"
-#              Resource: "*"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - "secretsmanager:GetSecretValue"
+              Resource: "*"
       VpcConfig:
         SecurityGroupIds:
           - Fn::ImportValue: !Sub "${InitResourceStack}-LambdaSecurityGroup"
