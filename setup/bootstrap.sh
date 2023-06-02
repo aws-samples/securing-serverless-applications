@@ -121,7 +121,7 @@ function main() {
     setcfoutput
     setclustername
     setregion
-    deployapp
+#    deployapp
     getapiurl
     initdb
     testapi
