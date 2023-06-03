@@ -6,8 +6,7 @@ const PARTNER_COMPANY_TABLE = "Companies";
 /*
 * Host
 */
-
-const host = "secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com"
+const host = process.env["AURORA_ENDPOINT"];
 
 class Database {
 
