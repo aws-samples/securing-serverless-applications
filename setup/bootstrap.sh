@@ -90,7 +90,6 @@ function deployapp() {
 
 function getapiurl(){
     _logger "[+] getapiurl()"
-    sam_stack_name="CustomizeUnicorns"
     api="$(aws cloudformation describe-stacks --stack-name $sam_stack_name --query 'Stacks[].Outputs[].OutputValue' --output text)"
     export api=${api%/} # remove trailing /
     echo "api=$api" >> $work_dir/set_vars.sh
@@ -132,19 +131,14 @@ if [ -d "$HOME/environment" ];
 then
   echo "we are in a Cloud9 environment"
   export work_dir="$HOME/environment/aws-samples/securing-serverless-applications/setup"
+  export stack_name='secure-serverless'
+  export sam_stack_name='customizeunicorns'
   cd $work_dir
   if [ -f 'set_vars.sh' ]; then
     rm set_vars.sh
   fi
 else
   echo "Script must be run from Cloud9 environment.  See instructions for accessing Cloud9"
-  exit 1
-fi
-
-if [ -z "${1}" ]; then
-  _logger "Error: must provide stack_name"
-  _logger "> bash setup/bootstrap.sh 'cloudfomration-stack-name'"
-  _logger "see workshop instructions for details"
   exit 1
 fi
 
