@@ -23,4 +23,3 @@ echo "cognito_domain=$cognito_domain"
 echo "client_id=$client_id"
 echo "client_secret=$client_secret"
 echo "token=$token"
-exec ${SHELL}
