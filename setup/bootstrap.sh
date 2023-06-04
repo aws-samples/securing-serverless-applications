@@ -28,45 +28,12 @@ function install_utility_tools() {
     sudo yum install -y jq
 }
 
-function checkstack() {
-    _logger "[+] Setting StackName"
-
-    stack=$(aws cloudformation list-stacks --query "StackSummaries[?StackStatus == 'CREATE_COMPLETE' && StackName == '$stack_name'].StackName")
-
-    if [ "$stack" = "[]" ];
-        then
-            echo "Stack Set missing.  Check out running the stack set in the instructions."
-            exit 0
-        else
-            echo "Found stack: $stack_name"
-    fi
-}
-
-
-function setclustername() {
-    _logger "[+] Setting Auora Cluster name"
-    sed -i "s/secure-aurora-cluster.cluster-xxxxxxx.xxxxxxx.rds.amazonaws.com/$AuroraEndpoint/g" $work_dir/src/app/dbUtils.js
-}
-
 function setregion() {
     _logger "[+] Setting region"
     echo  "REGION=$(curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >>$work_dir/set_vars.sh
 }
 
-function checkfile(){
-    _logger "[+] Checkfile"
-    export FILE=$work_dir/src/app/dbUtils.js
-    if [ -f $FILE ];
-    then
-        echo "Files cloned from Git!"
-    else
-        echo "Missing files. Please be sure to clone the file from Git: git clone https://github.com/aws-samples/aws-serverless-security-workshop.git"
-        exit 0
-    fi
-}
-
 function setcfoutput() {
-
     # load outputs to env vars
     _logger "[+] get Cloudformation outputs and set variables"
     for output in $(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[].Outputs[].OutputKey' --output text)
@@ -76,29 +43,16 @@ function setcfoutput() {
     source $work_dir/set_vars.sh
 }
 
-function deployapp() {
-    _logger "[+] Deploying app"
-    cd $work_dir/src/app
-    _logger "[+] npm install"
-    npm install
-    cd  $work_dir/src
-    _logger "[+] sam deploy"
-    sam deploy --stack-name CustomizeUnicorns --s3-bucket $DeploymentS3Bucket --capabilities CAPABILITY_IAM --parameter-overrides ParameterKey=InitResourceStack,ParameterValue=$stack_name || true
-    cd  $work_dir
-
-}
-
 function getapiurl(){
     _logger "[+] getapiurl()"
-    api="$(aws cloudformation describe-stacks --stack-name $sam_stack_name --query 'Stacks[].Outputs[].OutputValue' --output text)"
-    export api=${api%/} # remove trailing /
+    api=`aws cloudformation describe-stacks --stack-name $sam_stack_name --query "Stacks[].Outputs[] | [?OutputKey=='ApiURL'].OutputValue" --output text`
     echo "api=$api" >> $work_dir/set_vars.sh
 
 }
 
 function initdb(){
   _logger "[+] initdb()"
-  mysql -h $AuroraEndpoint -u admin --password=Corp123! < $work_dir/src/init/db/queries.sql
+  mysql -h $AuroraEndpoint -u admin --password=Corp123! < $work_dir/init.sql
   mysql -h $AuroraEndpoint -u admin --password=Corp123! -e "show tables" unicorn_customization
 }
 
@@ -115,12 +69,8 @@ function testapi(){
 
 function main() {
     install_utility_tools
-#    checkfile
-#    checkstack
     setcfoutput
-    setclustername
     setregion
-#    deployapp
     getapiurl
     initdb
     testapi
@@ -142,7 +92,6 @@ else
   exit 1
 fi
 
-export stack_name=${1}
 main
 source $work_dir/set_vars.sh
 cd $HOME/environment
