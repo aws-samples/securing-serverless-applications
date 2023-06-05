@@ -67,12 +67,26 @@ function testapi(){
     fi
 }
 
+function getauthorizer(){
+    _logger "[+] getauthorizer"
+    user_pool=`aws cognito-idp list-user-pools --max-results 10 --query "UserPools[?Name=='customizeunicorns-users'].Id" --output text`
+    client_id=`aws cognito-idp list-user-pool-clients --user-pool-id $user_pool --query "UserPoolClients[?ClientName=='Admin'].ClientId" --output text`
+    client_secret=`aws cognito-idp describe-user-pool-client --user-pool-id $user_pool --client-id $client_id --query "UserPoolClient.ClientSecret" --output text`
+    domain=`aws cognito-idp describe-user-pool --user-pool-id $user_pool --query "UserPool.Domain"`
+    cognito_domain="https://${domain}.auth.us-east-1.amazoncognito.com"
+    echo "user_pool=$user_pool" >> $work_dir/set_vars.sh
+    echo "client_id=$client_id" >> $work_dir/set_vars.sh
+    echo "client_secret=$client_secret" >> $work_dir/set_vars.sh
+    echo "cognito_domain=$cognito_domain" >> $work_dir/set_vars.sh
+}
+
 function main() {
     install_utility_tools
     setcfoutput
     setregion
     getapiurl
     initdb
+    getauthorizer
     testapi
 }
 
