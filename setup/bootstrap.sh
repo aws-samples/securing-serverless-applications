@@ -69,6 +69,7 @@ function testapi(){
 
 function getauthorizer(){
     _logger "[+] getauthorizer"
+    source $work_dir/set_vars.sh
     user_pool=`aws cognito-idp list-user-pools --max-results 10 --query "UserPools[?Name=='customizeunicorns-users'].Id" --output text`
     client_id=`aws cognito-idp list-user-pool-clients --user-pool-id $user_pool --query "UserPoolClients[?ClientName=='Admin'].ClientId" --output text`
     client_secret=`aws cognito-idp describe-user-pool-client --user-pool-id $user_pool --client-id $client_id --query "UserPoolClient.ClientSecret" --output text`
